@@ -1,0 +1,168 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|c:\\users\\pc\\documents\\tool\\autocamp\\autocamp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|C:\\Users\\PC\\Documents\\tool\\AutoCamp\\autocamp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|C:\\Users\\PC\\Documents\\tool\\AutoCamp\\autocamp\\ui\\camppe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\ui\\camppe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|c:\\users\\pc\\documents\\tool\\autocamp\\autocamp\\domain\\camppedomain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\domain\\camppedomain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|c:\\users\\pc\\documents\\tool\\autocamp\\autocamp\\ui\\camppe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\ui\\camppe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|c:\\users\\pc\\documents\\tool\\autocamp\\autocamp\\ui\\selectviaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\ui\\selectviaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|C:\\Users\\PC\\Documents\\tool\\AutoCamp\\autocamp\\ui\\selectviaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\ui\\selectviaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|c:\\users\\pc\\documents\\tool\\autocamp\\autocamp\\ui\\viaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\ui\\viaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|C:\\Users\\PC\\Documents\\tool\\AutoCamp\\autocamp\\ui\\viaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9D498F35-DD2E-4111-B1B9-7645D4D3C34F}|AutoCamp\\AutoCamp.csproj|solutionrelative:autocamp\\ui\\viaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CampPEDomain.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\domain\\CampPEDomain.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\domain\\CampPEDomain.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\domain\\CampPEDomain.cs",
+              "RelativeToolTip": "AutoCamp\\domain\\CampPEDomain.cs",
+              "ViewState": "AgIAACYBAAAAAAAAAAAYwDkBAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:22:36.3Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CampPE.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\CampPE.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\ui\\CampPE.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\CampPE.cs",
+              "RelativeToolTip": "AutoCamp\\ui\\CampPE.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:06:38.542Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CampPE.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\CampPE.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\ui\\CampPE.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\CampPE.cs [Design]",
+              "RelativeToolTip": "AutoCamp\\ui\\CampPE.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:06:23.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\Form1.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\Form1.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\Form1.cs",
+              "RelativeToolTip": "AutoCamp\\Form1.cs",
+              "ViewState": "AgIAAOsFAAAAAAAAAAAnwP4FAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T02:26:34.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\Form1.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\Form1.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\Form1.cs [Design]",
+              "RelativeToolTip": "AutoCamp\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T02:26:30.732Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SelectViaForm.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\SelectViaForm.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\ui\\SelectViaForm.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\SelectViaForm.cs",
+              "RelativeToolTip": "AutoCamp\\ui\\SelectViaForm.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAuwHMAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T02:22:08.31Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SelectViaForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\SelectViaForm.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\ui\\SelectViaForm.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\SelectViaForm.cs [Design]",
+              "RelativeToolTip": "AutoCamp\\ui\\SelectViaForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T02:22:05.902Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ViaForm.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\ViaForm.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\ui\\ViaForm.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\ViaForm.cs",
+              "RelativeToolTip": "AutoCamp\\ui\\ViaForm.cs",
+              "ViewState": "AgIAAOQAAAAAAAAAAADgv5IAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T02:21:17.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ViaForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\ViaForm.cs",
+              "RelativeDocumentMoniker": "AutoCamp\\ui\\ViaForm.cs",
+              "ToolTip": "C:\\Users\\PC\\Documents\\tool\\AutoCamp\\AutoCamp\\ui\\ViaForm.cs [Design]",
+              "RelativeToolTip": "AutoCamp\\ui\\ViaForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T02:21:10.929Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
