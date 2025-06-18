@@ -745,8 +745,45 @@ namespace AutoCamp
 
         private async void btnCampPe_Click(object sender, EventArgs e)
         {
-            CampPE campPE = new CampPE();
-            campPE.ShowDialog();
+           try
+            {
+                string cookie = txtCookieVia.Text;
+                string token = txtToken.Text;
+                string proxy = "";
+
+                if (cbxProxy.Checked)
+                {
+                    proxy = txtProxyVia.Text;
+                }
+
+                if (cookie.Length == 0 || token.Length == 0)
+                {
+                    MessageBox.Show("Vui lòng nhập cookie, token!");
+                    return;
+                }
+
+                List<string> idTkqcList = new List<string>();
+
+                foreach (DataGridViewRow row in adsAccountTable.Rows)
+                {
+                    if ((bool)row.Cells["cbxTable"].FormattedValue)
+                    {
+                        idTkqcList.Add(row.Cells["id"].Value.ToString());
+                    }
+                }
+
+                if (idTkqcList.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn ít nhất một tài khoản!");
+                    return;
+                }
+
+                CampPE campPE = new CampPE(idTkqcList, cookie, token, proxy);
+                campPE.ShowDialog();
+            } catch (Exception ex)
+            {
+                richTextBox1.Text += ex.Message;
+            }
         }
 
         private async void btnDeleteCredit_Click(object sender, EventArgs e)
@@ -826,15 +863,7 @@ namespace AutoCamp
 
         private async void button6_Click(object sender, EventArgs e)
         {
-            string cookie = "sb=PTlmZ0Rv-absBhFxrL8SNddn;datr=PTlmZ4aIgzyEEwdgHF-7Jmi-;ps_l=1;ps_n=1;wl_cbv=v2%3Bclient_version%3A2775%3Btimestamp%3A1743480093;c_user=100042072592948;b_user=61573201743336;wd=1920x953;fr=1ASVCWcghUrnyrsV1.AWd53U7SMdCNKCKkzBjE9WoKACaGaodgJb-x5GMkINku8-h30RU.BoSS5W..AAA.0.0.BoSS5W.AWd3DyPzTs9XVjTPVpds2JaY_0U;xs=3%3AXY7kt52SWeYpeA%3A2%3A1749090751%3A-1%3A-1%3AjaMB1GZ1gZWnLA%3AAcXzPQjxAUMa94uBmnk3N00NSUSNKz-VXbI1uV9IWn8;presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1749627608649%2C%22v%22%3A1%7D;";
-            string proxy = "212.32.99.11:46709:azJGpe4sNwE4waa:Bhz8FvNTNrXpRat";
-            string fb_dtsg = "NAftdl3NU7d7DijiRmEUlkNC33my2iSuToCLslpetMpgJAxf9uSGXLA:35:1750060054";
-            string idPage = "114189818317127";
-            string idPost = "645486511859242";
-            string idTkqc = "972491828129461";
-
-            string result = await CampBpDomain.publicBpCamp(cookie, fb_dtsg, idTkqc, idPage, idPost, proxy);
-            MessageBox.Show(result);
+            
         }
 
         private async void btnCampBpOptions_Click(object sender, EventArgs e)
@@ -1416,45 +1445,50 @@ namespace AutoCamp
 
         private async void btnTurnOnPrepay_Click(object sender, EventArgs e)
         {
-            using var playwright = await Playwright.CreateAsync();
+            //using var playwright = await Playwright.CreateAsync();
 
-            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
-            {
-                Headless = false, // Set to true for headless mode
-                Proxy = new Microsoft.Playwright.Proxy
-                {
-                    Server = "212.32.99.11:46709",
-                    Username = "azJGpe4sNwE4waa",
-                    Password = "Bhz8FvNTNrXpRat"
+            //await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            //{
+            //    Headless = false, // Set to true for headless mode
+            //    Proxy = new Microsoft.Playwright.Proxy
+            //    {
+            //        Server = "212.32.99.11:46709",
+            //        Username = "azJGpe4sNwE4waa",
+            //        Password = "Bhz8FvNTNrXpRat"
 
-                }
-            });
+            //    }
+            //});
 
 
-            var page = await browser.NewPageAsync();
-            await page.GotoAsync("https://ipconfig.io/ip"); // Kiểm tra IP mới
+            //var page = await browser.NewPageAsync();
+            //await page.GotoAsync("https://ipconfig.io/ip"); // Kiểm tra IP mới
 
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
 
-            await page.GotoAsync("https://www.facebook.com/r.php?entry_point=login");
+            //await page.GotoAsync("https://www.facebook.com/r.php?entry_point=login");
 
-            //await page.TypeAsync("[name='email']", "vinhdoan@example.com");
+            ////await page.TypeAsync("[name='email']", "vinhdoan@example.com");
 
-            Thread.Sleep(30000);
+            //Thread.Sleep(30000);
+
+
+            
 
         }
 
         private async void button10_Click(object sender, EventArgs e)
         {
-            string cookie = "sb=YT1BaHn4KiX4g1ZEnHci37N1;locale=en_US;ps_l=1;ps_n=1;ar_debug=1;wd=1920x953;datr=98tPaJaRCmz4mlmIaCZdGnO_;c_user=100000566470040;presence=EDvF3EtimeF1750060108EuserFA21B00566470040A2EstateFDutF0CEchF_7bCC;fr=1FHX1VvbtZz3Rlfve.AWf7wDTOzR8cjfcVS9lpS6BUNK-nIR8PHPkodqsuWI8q4F3dRUo.BoT8xk..AAA.0.0.BoT8xk.AWdr4Pwj_TlVKvYRZZ0gh7iDGo8;xs=35%3AVNMyyWEuD1purA%3A2%3A1750060054%3A-1%3A-1%3A%3AAcXzLUEOE0mk7ZV1ekWheFxkESWs9GVZhbqVqyNP6Q;cppo=1;";
-            string proxy = "212.32.99.11:46709:azJGpe4sNwE4waa:Bhz8FvNTNrXpRat";
-            string fb_dtsg = "NAftdl3NU7d7DijiRmEUlkNC33my2iSuToCLslpetMpgJAxf9uSGXLA:35:1750060054";
-            string idPage = "114189818317127";
-            string idPost = "645486511859242";
-            string idTkqc = "972491828129461";
+            // string cookie = "sb=YT1BaHn4KiX4g1ZEnHci37N1;locale=en_US;ps_l=1;ps_n=1;ar_debug=1;wd=1920x953;datr=98tPaJaRCmz4mlmIaCZdGnO_;c_user=100000566470040;presence=EDvF3EtimeF1750060108EuserFA21B00566470040A2EstateFDutF0CEchF_7bCC;fr=1FHX1VvbtZz3Rlfve.AWf7wDTOzR8cjfcVS9lpS6BUNK-nIR8PHPkodqsuWI8q4F3dRUo.BoT8xk..AAA.0.0.BoT8xk.AWdr4Pwj_TlVKvYRZZ0gh7iDGo8;xs=35%3AVNMyyWEuD1purA%3A2%3A1750060054%3A-1%3A-1%3A%3AAcXzLUEOE0mk7ZV1ekWheFxkESWs9GVZhbqVqyNP6Q;cppo=1;";
+            // string proxy = "212.32.99.11:46709:azJGpe4sNwE4waa:Bhz8FvNTNrXpRat";
+            // string fb_dtsg = "NAftdl3NU7d7DijiRmEUlkNC33my2iSuToCLslpetMpgJAxf9uSGXLA:35:1750060054";
+            // string idPage = "114189818317127";
+            // string idPost = "645486511859242";
+            // string idTkqc = "972491828129461";
 
-            string result = await CampBpDomain.publicBpCamp(cookie, fb_dtsg, idTkqc, idPage, idPost, proxy);
-            MessageBox.Show(result);
+            // string result = await CampBpDomain.publicBpCamp(cookie, fb_dtsg, idTkqc, idPage, idPost, proxy);
+
+            
+            // MessageBox.Show(result);
         }
 
         private async void btnPublicBpCamp_Click(object sender, EventArgs e)

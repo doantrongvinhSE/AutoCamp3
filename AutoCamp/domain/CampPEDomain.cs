@@ -229,7 +229,7 @@ namespace AutoCamp.domain
 
 
             var client = new RestClient(options);
-            var request = new RestRequest("/v21.0/" + draft_id + "/discard_fragments?_reqName=object%3Adraft_id%2Fdiscard_fragments&access_token=" + token, Method.Post);
+            var request = new RestRequest("/v18.0/" + draft_id + "/discard_fragments?_reqName=object%3Adraft_id%2Fdiscard_fragments&access_token=" + token, Method.Post);
             request.AddHeader("origin", "https://adsmanager.facebook.com");
             request.AddHeader("priority", "u=1, i");
             request.AddHeader("referer", "https://adsmanager.facebook.com/");
@@ -307,7 +307,8 @@ namespace AutoCamp.domain
         // new 
         public async static Task<string> getIdAddraft(string cookie, string token, string idTkqc, string? proxy = null)
         {
-            var options = new RestClientOptions("https://graph.facebook.com")
+            try {
+                var options = new RestClientOptions("https://graph.facebook.com")
             {
                 MaxTimeout = -1,
             };
@@ -326,9 +327,21 @@ namespace AutoCamp.domain
 
             JObject obj = JObject.Parse(result);
 
-            string adDraftId = obj["addrafts"]["data"][0]["id"].ToString() ?? "Lỗi lấy id addraft";
 
-            return adDraftId;
+            string adDraftId = "Lỗi lấy id addraft";
+
+                try
+                {
+                    adDraftId = (string)obj["addrafts"]?["data"]?[0]?["id"];
+                    return adDraftId;
+                }
+                catch
+                {
+                    return "Lỗi lấy id addraft";
+                }
+            } catch {
+                return "Lỗi lấy id addraft";
+            }
         }
 
 
@@ -388,6 +401,7 @@ namespace AutoCamp.domain
 
                 JArray valuesArray1 = (JArray)phantu1["values"];
 
+
                 JToken phantu2 = dataArray[1];
 
                 JArray valuesArray2 = (JArray)phantu2["values"];
@@ -395,6 +409,11 @@ namespace AutoCamp.domain
                 JToken phantu3 = dataArray[0];
 
                 JArray valuesArray3 = (JArray)phantu3["values"];
+
+
+                FixJsonValues(valuesArray1);
+                FixJsonValues(valuesArray2);
+                FixJsonValues(valuesArray3);
 
 
                 return idTkqc + "|" + newCampainId + "|" + newAdsetId + "|" + valuesArray1.ToString(Newtonsoft.Json.Formatting.None) + "|" + valuesArray2.ToString(Newtonsoft.Json.Formatting.None) + "|" + valuesArray3.ToString(Newtonsoft.Json.Formatting.None);
@@ -408,9 +427,8 @@ namespace AutoCamp.domain
 
 
         // đăng camp chiến dịch 
-        public async static Task<string> pushDraftCampainPe(string cookie, string token, string idTkqc, string valueCampain ,string? proxy = null)
+        public async static Task<string> pushDraftCampainPe(string cookie, string token, string idTkqc, string idDraft, string valueCampain, string? proxy = null)
         {
-            string idDraft = await getIdAddraft(cookie, token, idTkqc, proxy);
 
             var options = new RestClientOptions("https://adsmanager-graph.facebook.com")
             {
@@ -444,10 +462,148 @@ namespace AutoCamp.domain
 
             JObject obj = JObject.Parse(result);
 
-            string id = obj["ad_object_id"].ToString() ?? "Lỗi lấy id";
+            string id = obj["ad_object_id"].ToString() ?? "Lỗi lấy id camp";
 
             return id;
         }
+
+
+
+        public static void FixJsonValues(JArray valuesArray)
+        {
+            foreach (var item in valuesArray)
+            {
+                foreach (var field in new[] { "old_value", "new_value" })
+                {
+                    if (item[field] != null && item[field].Type == JTokenType.String)
+                    {
+                        string val = item[field]?.ToString()?.Trim();
+
+                        if (val == "null")
+                        {
+                            item[field] = JValue.CreateNull();
+                        }
+                        else if (val == "true" || val == "false")
+                        {
+                            item[field] = bool.Parse(val);
+                        }
+                        else if ((val.StartsWith("[") && val.EndsWith("]")) || (val.StartsWith("{") && val.EndsWith("}")))
+                        {
+                            try
+                            {
+                                item[field] = JToken.Parse(val); // <-- kiểm tra hợp lệ
+                            }
+                            catch
+                            {
+                                // Giữ nguyên dạng string nếu không hợp lệ
+                                item[field] = val;
+                            }
+                        }
+                        else if (long.TryParse(val, out long longVal))
+                        {
+                            item[field] = longVal;
+                        }
+                        else
+                        {
+                            item[field] = val.Trim('"'); // loại bỏ dấu " nếu có
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public async static Task<string> pushDraftAdsetPe(string cookie, string token, string idTkqc, string idDraft, string valueAdset, string parentAdObjectId, string? proxy = null)
+        {
+            var options = new RestClientOptions("https://adsmanager-graph.facebook.com")
+            {
+                MaxTimeout = -1,
+            };
+            if (proxy != null)
+            {
+                ProxyHelper.SetProxy(options, proxy);
+            }
+            var client = new RestClient(options);
+            var request = new RestRequest($"/v19.0/{idDraft}/addraft_fragments?_reqName=object%3Aaddraft%2Faddraft_fragments&access_token={token}&method=post", Method.Post);
+            request.AddHeader("Cookie", cookie);
+            request.AlwaysMultipartFormData = true;
+            request.AddParameter("__activeScenarios", "[\"am.draft.create_draft\"]");
+            request.AddParameter("__ad_account_id", idTkqc);
+            request.AddParameter("_priority", "HIGH");
+            request.AddParameter("_reqName", "object:addraft/addraft_fragments");
+            request.AddParameter("_reqSrc", "AdsDraftFragmentDataManager");
+            request.AddParameter("account_id", idTkqc);
+            request.AddParameter("action", "add");
+            request.AddParameter("ad_draft_id", idDraft);
+            request.AddParameter("ad_object_type", "ad_set");
+            request.AddParameter("include_headers", "false");
+            request.AddParameter("is_archive", "false");
+            request.AddParameter("is_delete", "false");
+            request.AddParameter("method", "post");
+            request.AddParameter("parent_ad_object_id", parentAdObjectId);
+            request.AddParameter("pretty", "0");
+            request.AddParameter("source", "click_quick_create");
+            request.AddParameter("suppress_http_code", "1");
+            request.AddParameter("validate", "false");
+            request.AddParameter("values", valueAdset);
+            RestResponse response = await client.ExecuteAsync(request);
+            string result = response.Content;
+
+            JObject obj = JObject.Parse(result);
+
+            string id = obj["ad_object_id"].ToString() ?? "Lỗi lấy id nhóm";
+
+            return id;
+
+        }
+
+
+        public async static Task<string> pushDraftAdPe(string cookie, string token, string idTkqc, string idDraft, string valueAd, string parentAdSetObjectId, string? proxy = null)
+        {
+            var options = new RestClientOptions("https://adsmanager-graph.facebook.com")
+            {
+                MaxTimeout = -1,
+            };
+
+            if (proxy != null)
+            {
+                ProxyHelper.SetProxy(options, proxy);
+            }
+
+            var client = new RestClient(options);
+            var request = new RestRequest($"/v19.0/{idDraft}/addraft_fragments?_reqName=object%3Aaddraft%2Faddraft_fragments&access_token={token}&method=post", Method.Post);
+            request.AddHeader("Cookie", cookie);
+            request.AlwaysMultipartFormData = true;
+            request.AddParameter("__activeScenarios", "[\"am.draft.create_draft\"]");
+            request.AddParameter("__ad_account_id", idTkqc);
+            request.AddParameter("_priority", "HIGH");
+            request.AddParameter("_reqName", "object:addraft/addraft_fragments");
+            request.AddParameter("_reqSrc", "AdsDraftFragmentDataManager");
+            request.AddParameter("account_id", idTkqc);
+            request.AddParameter("action", "add");
+            request.AddParameter("ad_draft_id", idDraft);
+            request.AddParameter("ad_object_type", "ad");
+            request.AddParameter("include_headers", "false");
+            request.AddParameter("is_archive", "false");
+            request.AddParameter("is_delete", "false");
+            request.AddParameter("method", "post");
+            request.AddParameter("parent_ad_object_id", parentAdSetObjectId);
+            request.AddParameter("pretty", "0");
+            request.AddParameter("source", "click_quick_create");
+            request.AddParameter("suppress_http_code", "1");
+            request.AddParameter("validate", "false");
+            request.AddParameter("values", valueAd);
+            RestResponse response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            string result = response.Content;
+
+            JObject obj = JObject.Parse(result);
+
+            string id = obj["ad_object_id"].ToString() ?? "Lỗi lấy id ad";
+
+            return id;
+        }
+
 
     }
 }

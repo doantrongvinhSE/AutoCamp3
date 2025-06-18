@@ -30,61 +30,106 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CampPE));
             panel1 = new Panel();
-            button1 = new Button();
+            label3 = new Label();
+            ListIdTkqcTable = new DataGridView();
+            id = new DataGridViewTextBoxColumn();
+            process = new DataGridViewTextBoxColumn();
+            cbxPublicCampPE = new CheckBox();
             label2 = new Label();
-            richTextBox1 = new RichTextBox();
-            checkBox1 = new CheckBox();
+            richDataDraftPe = new RichTextBox();
+            cbxImportDraft = new CheckBox();
             label1 = new Label();
+            btnRun = new Button();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ListIdTkqcTable).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnRun);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(ListIdTkqcTable);
+            panel1.Controls.Add(cbxPublicCampPE);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(richTextBox1);
-            panel1.Controls.Add(checkBox1);
+            panel1.Controls.Add(richDataDraftPe);
+            panel1.Controls.Add(cbxImportDraft);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(839, 496);
+            panel1.Size = new Size(1201, 590);
             panel1.TabIndex = 0;
             // 
-            // button1
+            // label3
             // 
-            button1.Location = new Point(739, 443);
-            button1.Name = "button1";
-            button1.Size = new Size(90, 47);
-            button1.TabIndex = 3;
-            button1.Text = "Lưu";
-            button1.UseVisualStyleBackColor = true;
+            label3.AutoSize = true;
+            label3.Location = new Point(697, 14);
+            label3.Name = "label3";
+            label3.Size = new Size(57, 15);
+            label3.TabIndex = 6;
+            label3.Text = "Bản nháp";
+            // 
+            // ListIdTkqcTable
+            // 
+            ListIdTkqcTable.AllowUserToAddRows = false;
+            ListIdTkqcTable.AllowUserToResizeRows = false;
+            ListIdTkqcTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ListIdTkqcTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ListIdTkqcTable.Columns.AddRange(new DataGridViewColumn[] { id, process });
+            ListIdTkqcTable.Location = new Point(5, 14);
+            ListIdTkqcTable.Name = "ListIdTkqcTable";
+            ListIdTkqcTable.RowHeadersVisible = false;
+            ListIdTkqcTable.Size = new Size(508, 562);
+            ListIdTkqcTable.TabIndex = 5;
+            // 
+            // id
+            // 
+            id.FillWeight = 134.771576F;
+            id.HeaderText = "ID";
+            id.Name = "id";
+            // 
+            // process
+            // 
+            process.FillWeight = 134.771576F;
+            process.HeaderText = "Trạng thái";
+            process.Name = "process";
+            process.ReadOnly = true;
+            // 
+            // cbxPublicCampPE
+            // 
+            cbxPublicCampPE.AutoSize = true;
+            cbxPublicCampPE.Location = new Point(533, 67);
+            cbxPublicCampPE.Name = "cbxPublicCampPE";
+            cbxPublicCampPE.Size = new Size(92, 19);
+            cbxPublicCampPE.TabIndex = 4;
+            cbxPublicCampPE.Text = "Public camp";
+            cbxPublicCampPE.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(343, 17);
+            label2.Location = new Point(533, 14);
             label2.Name = "label2";
-            label2.Size = new Size(57, 15);
+            label2.Size = new Size(55, 15);
             label2.TabIndex = 2;
-            label2.Text = "Bản nháp";
+            label2.Text = "Cấu hình";
             // 
-            // richTextBox1
+            // richDataDraftPe
             // 
-            richTextBox1.Location = new Point(343, 45);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(486, 390);
-            richTextBox1.TabIndex = 1;
-            richTextBox1.Text = "";
+            richDataDraftPe.Location = new Point(697, 42);
+            richDataDraftPe.Name = "richDataDraftPe";
+            richDataDraftPe.Size = new Size(486, 390);
+            richDataDraftPe.TabIndex = 1;
+            richDataDraftPe.Text = "";
             // 
-            // checkBox1
+            // cbxImportDraft
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(8, 14);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(124, 19);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "Nhập bản nháp PE";
-            checkBox1.UseVisualStyleBackColor = true;
+            cbxImportDraft.AutoSize = true;
+            cbxImportDraft.Location = new Point(533, 42);
+            cbxImportDraft.Name = "cbxImportDraft";
+            cbxImportDraft.Size = new Size(124, 19);
+            cbxImportDraft.TabIndex = 0;
+            cbxImportDraft.Text = "Nhập bản nháp PE";
+            cbxImportDraft.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -95,11 +140,21 @@
             label1.TabIndex = 0;
             label1.Text = "Camp";
             // 
+            // btnRun
+            // 
+            btnRun.Location = new Point(1094, 447);
+            btnRun.Name = "btnRun";
+            btnRun.Size = new Size(89, 44);
+            btnRun.TabIndex = 7;
+            btnRun.Text = "Run";
+            btnRun.UseVisualStyleBackColor = true;
+            btnRun.Click += btnRun_Click;
+            // 
             // CampPE
             // 
             AutoScaleMode = AutoScaleMode.None;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(863, 520);
+            ClientSize = new Size(1225, 614);
             Controls.Add(label1);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -110,6 +165,7 @@
             Text = "CampPE";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)ListIdTkqcTable).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -118,9 +174,14 @@
 
         private Panel panel1;
         private Label label1;
-        private CheckBox checkBox1;
-        private RichTextBox richTextBox1;
+        private CheckBox cbxImportDraft;
+        private RichTextBox richDataDraftPe;
         private Label label2;
-        private Button button1;
+        private CheckBox cbxPublicCampPE;
+        private DataGridView ListIdTkqcTable;
+        private Label label3;
+        private DataGridViewTextBoxColumn id;
+        private DataGridViewTextBoxColumn process;
+        private Button btnRun;
     }
 }
