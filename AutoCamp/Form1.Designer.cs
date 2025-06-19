@@ -74,9 +74,9 @@
             btnCheckCredit1 = new ToolStripMenuItem();
             btnPublicBpCamp = new ToolStripMenuItem();
             btnGetDraftPE = new ToolStripMenuItem();
+            btnPasteIdTKQC = new ToolStripMenuItem();
             panel4 = new Panel();
             panel7 = new Panel();
-            btnClearAllDraft = new Button();
             button19 = new Button();
             button18 = new Button();
             button17 = new Button();
@@ -358,15 +358,15 @@
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new Size(24, 24);
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { btnLoadAgain, btnOnOffCamp, btnClearOptions, btnSelectedOptions, btnAddCredit, btnCheckCredit1, btnPublicBpCamp, btnGetDraftPE });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { btnLoadAgain, btnOnOffCamp, btnClearOptions, btnSelectedOptions, btnAddCredit, btnCheckCredit1, btnPublicBpCamp, btnGetDraftPE, btnPasteIdTKQC });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(189, 266);
+            contextMenuStrip1.Size = new Size(170, 274);
             // 
             // btnLoadAgain
             // 
             btnLoadAgain.Image = Properties.Resources.refresh;
             btnLoadAgain.Name = "btnLoadAgain";
-            btnLoadAgain.Size = new Size(188, 30);
+            btnLoadAgain.Size = new Size(169, 30);
             btnLoadAgain.Text = "Load lại";
             btnLoadAgain.Click += btnLoadAgain_Click;
             // 
@@ -374,7 +374,7 @@
             // 
             btnOnOffCamp.Image = Properties.Resources.switch_on;
             btnOnOffCamp.Name = "btnOnOffCamp";
-            btnOnOffCamp.Size = new Size(188, 30);
+            btnOnOffCamp.Size = new Size(169, 30);
             btnOnOffCamp.Text = "Bật | Tắt Camp";
             // 
             // btnClearOptions
@@ -382,7 +382,7 @@
             btnClearOptions.DropDown = contextMenuStrip3;
             btnClearOptions.Image = Properties.Resources.trash;
             btnClearOptions.Name = "btnClearOptions";
-            btnClearOptions.Size = new Size(188, 30);
+            btnClearOptions.Size = new Size(169, 30);
             btnClearOptions.Text = "Xoá dữ liệu";
             // 
             // contextMenuStrip3
@@ -412,7 +412,7 @@
             btnSelectedOptions.DropDown = contextMenuStrip2;
             btnSelectedOptions.Image = Properties.Resources.touchscreen;
             btnSelectedOptions.Name = "btnSelectedOptions";
-            btnSelectedOptions.Size = new Size(188, 30);
+            btnSelectedOptions.Size = new Size(169, 30);
             btnSelectedOptions.Text = "Chọn dữ liệu";
             // 
             // contextMenuStrip2
@@ -455,7 +455,7 @@
             // 
             btnAddCredit.Image = Properties.Resources.card;
             btnAddCredit.Name = "btnAddCredit";
-            btnAddCredit.Size = new Size(188, 30);
+            btnAddCredit.Size = new Size(169, 30);
             btnAddCredit.Text = "Add thẻ";
             btnAddCredit.Click += btnAddCredit_Click;
             // 
@@ -463,7 +463,7 @@
             // 
             btnCheckCredit1.Image = Properties.Resources.card;
             btnCheckCredit1.Name = "btnCheckCredit1";
-            btnCheckCredit1.Size = new Size(188, 30);
+            btnCheckCredit1.Size = new Size(169, 30);
             btnCheckCredit1.Text = "Check thẻ";
             btnCheckCredit1.Click += btnCheckCredit1_Click;
             // 
@@ -471,7 +471,7 @@
             // 
             btnPublicBpCamp.Image = Properties.Resources.rocket;
             btnPublicBpCamp.Name = "btnPublicBpCamp";
-            btnPublicBpCamp.Size = new Size(188, 30);
+            btnPublicBpCamp.Size = new Size(169, 30);
             btnPublicBpCamp.Text = "Đăng camp BP";
             btnPublicBpCamp.Click += btnPublicBpCamp_Click;
             // 
@@ -479,9 +479,17 @@
             // 
             btnGetDraftPE.Image = Properties.Resources.content;
             btnGetDraftPE.Name = "btnGetDraftPE";
-            btnGetDraftPE.Size = new Size(188, 30);
+            btnGetDraftPE.Size = new Size(169, 30);
             btnGetDraftPE.Text = "Lấy bản nháp PE";
             btnGetDraftPE.Click += btnGetDraftPE_Click;
+            // 
+            // btnPasteIdTKQC
+            // 
+            btnPasteIdTKQC.Image = Properties.Resources.copy;
+            btnPasteIdTKQC.Name = "btnPasteIdTKQC";
+            btnPasteIdTKQC.Size = new Size(169, 30);
+            btnPasteIdTKQC.Text = "Dán TKQC";
+            btnPasteIdTKQC.Click += btnPasteIdTKQC_Click;
             // 
             // panel4
             // 
@@ -505,7 +513,6 @@
             // 
             // panel7
             // 
-            panel7.Controls.Add(btnClearAllDraft);
             panel7.Controls.Add(button19);
             panel7.Controls.Add(button18);
             panel7.Controls.Add(button17);
@@ -520,16 +527,6 @@
             panel7.Name = "panel7";
             panel7.Size = new Size(780, 73);
             panel7.TabIndex = 11;
-            // 
-            // btnClearAllDraft
-            // 
-            btnClearAllDraft.Location = new Point(671, 42);
-            btnClearAllDraft.Name = "btnClearAllDraft";
-            btnClearAllDraft.Size = new Size(106, 25);
-            btnClearAllDraft.TabIndex = 38;
-            btnClearAllDraft.Text = "Xoá All Nháp";
-            btnClearAllDraft.UseVisualStyleBackColor = true;
-            btnClearAllDraft.Click += btnClearAllDraft_Click;
             // 
             // button19
             // 
@@ -1094,11 +1091,11 @@
         private DataGridViewTextBoxColumn endTime;
         private DataGridViewTextBoxColumn pixel;
         private DataGridViewTextBoxColumn process;
-        private Button btnClearAllDraft;
         private ToolStripMenuItem btnAddCredit;
         private ToolStripMenuItem btnCheckCredit;
         private ToolStripMenuItem btnCheckCredit1;
         private ToolStripMenuItem btnPublicBpCamp;
         private ToolStripMenuItem btnGetDraftPE;
+        private ToolStripMenuItem btnPasteIdTKQC;
     }
 }

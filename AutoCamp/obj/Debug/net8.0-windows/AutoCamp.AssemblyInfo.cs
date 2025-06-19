@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoCamp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0668d2db696ac8f70bf38f5671f41fcb6c78ac65")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f13a68a48bee398a52af6eef9f43296c72b03884")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoCamp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoCamp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

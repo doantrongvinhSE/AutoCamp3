@@ -745,7 +745,7 @@ namespace AutoCamp
 
         private async void btnCampPe_Click(object sender, EventArgs e)
         {
-           try
+            try
             {
                 string cookie = txtCookieVia.Text;
                 string token = txtToken.Text;
@@ -780,7 +780,8 @@ namespace AutoCamp
 
                 CampPE campPE = new CampPE(idTkqcList, cookie, token, proxy);
                 campPE.ShowDialog();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 richTextBox1.Text += ex.Message;
             }
@@ -793,77 +794,20 @@ namespace AutoCamp
 
         private async void btnClearAllDraft_Click(object sender, EventArgs e)
         {
-            string cookie = txtCookieVia.Text;
-            string proxy = "";
-            string token = txtToken.Text;
-
-
-            if (cookie.Length == 0 || token.Length == 0)
-            {
-                MessageBox.Show("Vui lòng nhập cookie, token!");
-                return;
-            }
-
-            if (cbxProxy.Checked)
-            {
-                proxy = txtProxyVia.Text;
-                if (string.IsNullOrEmpty(proxy))
-                {
-                    MessageBox.Show("Vui lòng nhập proxy!");
-                    return;
-                }
-            }
-
-            List<Task> tasks = new List<Task>();
-
-            foreach (DataGridViewRow row in adsAccountTable.Rows)
-            {
-                if ((bool)row.Cells["cbxTable"].FormattedValue)
-                {
-                    // Copy row để dùng trong Task tránh closure issues
-                    var currentRow = row;
-
-                    var task = Task.Run(async () =>
-                    {
-                        try
-                        {
-                            string idTkqc = currentRow.Cells["id"].Value.ToString();
-
-                            // Cập nhật UI phải gọi từ thread chính
-                            adsAccountTable.Invoke((MethodInvoker)delegate
-                            {
-                                currentRow.Cells["process"].Value = "Đang xoá bản nháp...";
-                            });
-
-                            string result = await Task.Run(() => CampPEDomain.DeleteAllDraftPe(cookie, token, idTkqc, proxy));
-
-                            // Cập nhật UI phải gọi từ thread chính
-                            adsAccountTable.Invoke((MethodInvoker)delegate
-                            {
-                                currentRow.Cells["process"].Value = result;
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-                            // Xử lý lỗi và cập nhật UI
-                            adsAccountTable.Invoke((MethodInvoker)delegate
-                            {
-                                currentRow.Cells["process"].Value = "Lỗi: " + ex.Message;
-                            });
-                        }
-                    });
-
-                    tasks.Add(task);
-                }
-            }
-
-            // Đợi tất cả các task hoàn thành
-            await Task.WhenAll(tasks);
+            
         }
 
         private async void button6_Click(object sender, EventArgs e)
         {
+            string cookie = txtCookieVia.Text;
+            string token = txtToken.Text;
+            string proxy = "212.32.99.11:46709:azJGpe4sNwE4waa:Bhz8FvNTNrXpRat";
+            string idTkqc = "1832766910593753";
+
+            string result = await CampPEDomain.publicCampPeFromDraft(cookie, token, idTkqc, proxy);
             
+            richTextBox1.Text += result;
+           
         }
 
         private async void btnCampBpOptions_Click(object sender, EventArgs e)
@@ -1472,7 +1416,7 @@ namespace AutoCamp
             //Thread.Sleep(30000);
 
 
-            
+
 
         }
 
@@ -1487,7 +1431,7 @@ namespace AutoCamp
 
             // string result = await CampBpDomain.publicBpCamp(cookie, fb_dtsg, idTkqc, idPage, idPost, proxy);
 
-            
+
             // MessageBox.Show(result);
         }
 
@@ -1580,7 +1524,8 @@ namespace AutoCamp
 
         private async void btnGetDraftPE_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 string cookie = txtCookieVia.Text;
                 string token = txtToken.Text;
                 string proxy = "";
@@ -1626,8 +1571,31 @@ namespace AutoCamp
                 richTextBox1.Text += result;
                 selectedRow.Cells["process"].Value = "Hoàn thành";
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 richTextBox1.Text += $"\nLỗi: {ex.Message}";
+            }
+        }
+
+        private void btnPasteIdTKQC_Click(object sender, EventArgs e)
+        {
+            string clipboardText = Clipboard.GetText();
+
+            if (string.IsNullOrWhiteSpace(clipboardText))
+            {
+                MessageBox.Show("Vui lòng copy ID tài khoản!");
+                return;
+            }
+
+            // Tách từng dòng theo dấu xuống dòng (\r\n hoặc \n)
+            string[] ids = clipboardText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string id in ids)
+            {
+                // Thêm dòng mới vào DataGridView
+                int index = adsAccountTable.Rows.Add(); // thêm dòng mới
+                adsAccountTable.Rows[index].Cells["id"].Value = id.Trim(); // đặt giá trị ô "id"
             }
         }
     }

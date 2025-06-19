@@ -14,56 +14,6 @@ namespace AutoCamp.domain
 {
     public class CampPEDomain
     {
-        public static async Task<String> uploadDraftCamp(string cookie, string token, string fb_dtsg, string idTkqc, string textFile, string? proxy = null)
-        {
-            string uidVia = HelperUtils.ExtractUserIdFromCookie(cookie);
-
-
-            var options = new RestClientOptions("https://adsmanager.facebook.com")
-            {
-                MaxTimeout = -1,
-            };
-
-            if (proxy != null)
-            {
-                ProxyHelper.SetProxy(options, proxy);
-            }
-
-            var client = new RestClient(options);
-            var request = new RestRequest("/adsmanager/loadtsv/?ads_manager_write_regions=true&_callFlowletID=0&_triggerFlowletID=39129&qpl_active_flow_instance_ids=270216139_e0f0b5cb279b02ab02a,270219019_e0f1eef39c9fbe61299&qpl_active_e2e_trace_ids=270216139_f35000bac6dfad52b", Method.Post);
-            request.AddHeader("accept", "*/*");
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            request.AddHeader("origin", "https://adsmanager.facebook.com");
-            request.AddHeader("sec-fetch-mode", "cors");
-            request.AddHeader("sec-fetch-site", "same-origin");
-            request.AddHeader("Cookie", cookie);
-            request.AddParameter("account_id", idTkqc);
-            request.AddParameter("app_id", "119211728144504");
-            request.AddParameter("import_session_token", "fa30cbe9e63004716");
-            request.AddParameter("tsv", textFile);
-            request.AddParameter("__aaid", idTkqc);
-            request.AddParameter("__user", uidVia);
-            request.AddParameter("__a", "1");
-            request.AddParameter("fb_dtsg", fb_dtsg);
-            request.AddParameter("lsd", "u-87ToDqgg90rlXouPB9Pb");
-            RestResponse response = await client.ExecuteAsync(request);
-
-            string responseContent = response.Content ?? string.Empty;
-
-            string result = "";
-
-            Task.Delay(8000).Wait();
-
-            if (responseContent.Contains("async_session_id"))
-            {
-                result = await checkStatusUpDraftPe(cookie, token, idTkqc, proxy);
-                return result;
-            }
-
-
-            return "Đăng bản nháp thất bại!";
-        }
-
 
         public async static Task<string> getAddraftId(string cookie, string token, string idTKQC, string? proxy = null)
         {
@@ -159,9 +109,8 @@ namespace AutoCamp.domain
 
 
 
-        public async static Task<string> checkStatusUpDraftPe(string cookie, string token, string idTkqc, string? proxy = null)
+        public async static Task<List<string>> getIdsCampGroupAds(string cookie, string token, string idDraft, string idTkqc, string? proxy = null)
         {
-            string idDraft = await getAddraftId(cookie, token, idTkqc, proxy);
 
             var options = new RestClientOptions("https://graph.facebook.com")
             {
@@ -173,14 +122,8 @@ namespace AutoCamp.domain
             var client = new RestClient(options);
             var request = new RestRequest("/v12.0/" + idDraft + "/addraft_fragments?access_token=" + token, Method.Get);
             request.AddHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
-            request.AddHeader("accept-language", "en-US,en;q=0.9,vi;q=0.8");
             request.AddHeader("cache-control", "max-age=0");
             request.AddHeader("priority", "u=0, i");
-            request.AddHeader("sec-ch-ua", "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"");
-            request.AddHeader("sec-ch-ua-mobile", "?0");
-            request.AddHeader("sec-ch-ua-platform", "\"Windows\"");
-            request.AddHeader("sec-fetch-dest", "document");
-            request.AddHeader("sec-fetch-mode", "navigate");
             request.AddHeader("sec-fetch-site", "none");
             request.AddHeader("sec-fetch-user", "?1");
             request.AddHeader("upgrade-insecure-requests", "1");
@@ -189,29 +132,72 @@ namespace AutoCamp.domain
 
             string result = response.Content;
 
-            JObject obj = JObject.Parse(result);
+            var ids = JObject.Parse(result)["data"]
+           .Select(token => token["id"].ToString())
+           .ToList();
+
+            return ids;
+        }
 
 
-            string id = "";
+        public async static Task<string> publicCampPeFromDraft(string cookie, string token, string idTkqc, string? proxy = null)
+        {
+            string idDraft = await getIdAddraft(cookie, token, idTkqc, proxy);
 
-            try
+
+            if (idDraft == null || idDraft.Contains("Lỗi"))
             {
-                id = (string)obj["data"]?[0]?["id"];
-
-            }
-            catch
-            {
-                return "Đăng bản nháp thất bại";
-            }
-
-            if (id.Length > 0)
-            {
-                return "Đăng bản nháp thành công!";
-
+                return "Lỗi lấy id draft";
             }
 
-            return "Đăng bản nháp thất bại!";
+            await Task.Delay(2000);
 
+            List<string> ids = await getIdsCampGroupAds(cookie, token, idDraft, idTkqc, proxy);
+
+            if (ids.Count == 3)
+            {
+                var options = new RestClientOptions("https://adsmanager-graph.facebook.com")
+                {
+                    MaxTimeout = -1,
+                };
+
+                ProxyHelper.SetProxy(options, proxy);
+
+                var client = new RestClient(options);
+                var request = new RestRequest($"/v21.0/{idDraft}/publish?_reqName=object%3Adraft_id%2Fpublish&method=post&access_token={token}", Method.Post);
+                request.AddHeader("accept", "*/*");
+                request.AddHeader("content-type", "application/x-www-form-urlencoded");
+                request.AddHeader("origin", "https://adsmanager.facebook.com");
+                request.AddHeader("priority", "u=1, i");
+                request.AddHeader("referer", "https://adsmanager.facebook.com/");
+                request.AddHeader("sec-fetch-dest", "empty");
+                request.AddHeader("sec-fetch-mode", "cors");
+                request.AddHeader("sec-fetch-site", "same-site");
+                request.AddHeader("Cookie", cookie);
+                request.AddParameter("__activeScenarios", "[\"am.publish_ads.in_review_and_publish\"]");
+                request.AddParameter("__ad_account_id", idTkqc);
+                request.AddParameter("_reqName", "object:draft_id/publish");
+                request.AddParameter("_reqSrc", "AdsDraftPublishDataManager");
+                request.AddParameter("fragments", "[\"" + ids[2] + "\",\"" + ids[1] + "\",\"" + ids[0] + "\"]");
+                request.AddParameter("ignore_errors", "true");
+                request.AddParameter("include_fragment_statuses", "true");
+                request.AddParameter("include_headers", "false");
+                request.AddParameter("method", "post");
+                request.AddParameter("pretty", "0");
+                RestResponse response = await client.ExecuteAsync(request);
+
+                if (response.Content.Contains("true"))
+                {
+                    return "Public camp thành công!";
+                }
+            }
+            else
+            {
+                return "Public camp thất bại (Không có bản nháp nào!)";
+
+            }
+
+            return "Public camp thất bại";
         }
 
 
@@ -307,28 +293,29 @@ namespace AutoCamp.domain
         // new 
         public async static Task<string> getIdAddraft(string cookie, string token, string idTkqc, string? proxy = null)
         {
-            try {
+            try
+            {
                 var options = new RestClientOptions("https://graph.facebook.com")
-            {
-                MaxTimeout = -1,
-            };
+                {
+                    MaxTimeout = -1,
+                };
 
-            if (proxy != null)
-            {
-                ProxyHelper.SetProxy(options, proxy);
-            }
+                if (proxy != null)
+                {
+                    ProxyHelper.SetProxy(options, proxy);
+                }
 
-            var client = new RestClient(options);
-            var request = new RestRequest($"/v19.0/act_{idTkqc}?fields=addrafts%7Bid%7D&access_token={token}", Method.Get);
-            request.AddHeader("Cookie", cookie);
-            RestResponse response = await client.ExecuteAsync(request);
+                var client = new RestClient(options);
+                var request = new RestRequest($"/v19.0/act_{idTkqc}?fields=addrafts%7Bid%7D&access_token={token}", Method.Get);
+                request.AddHeader("Cookie", cookie);
+                RestResponse response = await client.ExecuteAsync(request);
 
-            string result = response.Content ?? string.Empty;
+                string result = response.Content ?? string.Empty;
 
-            JObject obj = JObject.Parse(result);
+                JObject obj = JObject.Parse(result);
 
 
-            string adDraftId = "Lỗi lấy id addraft";
+                string adDraftId = "Lỗi lấy id addraft";
 
                 try
                 {
@@ -339,9 +326,42 @@ namespace AutoCamp.domain
                 {
                     return "Lỗi lấy id addraft";
                 }
-            } catch {
+            }
+            catch
+            {
                 return "Lỗi lấy id addraft";
             }
+        }
+
+        public async static Task<string> getIdAddraftAgain(string cookie, string idTkqc, string? proxy = null)
+        {
+            var options = new RestClientOptions("https://adsmanager.facebook.com")
+            {
+                MaxTimeout = -1,
+            };
+
+            if (proxy != null)
+            {
+                ProxyHelper.SetProxy(options, proxy);
+            }
+
+            var client = new RestClient(options);
+            var request = new RestRequest($"/adsmanager/manage/campaigns?act={idTkqc}&breakdown_regrouping=1&nav_source=no_referrer", Method.Get);
+            request.AddHeader("Cookie", cookie);
+            RestResponse response = await client.ExecuteAsync(request);
+
+            string result = response.Content ?? string.Empty;
+
+            string regex = @"""ad_draft_id""\s*:\s*""(\d+)""";
+
+            Match match = Regex.Match(result, regex);
+
+            if (match.Success)
+            {
+                return match.Groups[1].Value;
+            }
+
+            return "Lỗi lấy id addraft";
         }
 
 
@@ -423,7 +443,6 @@ namespace AutoCamp.domain
                 return "Lỗi";
             }
         }
-
 
 
         // đăng camp chiến dịch 
@@ -604,6 +623,59 @@ namespace AutoCamp.domain
             return id;
         }
 
+
+        public async static Task<string> getEditTargetDraft(string cookie, string token, string idTkqc, string? proxy = null)
+        {
+            string idDraft = await getIdAddraft(cookie, token, idTkqc, proxy);
+
+            var options = new RestClientOptions("https://graph.facebook.com")
+            {
+                MaxTimeout = -1,
+            };
+
+            ProxyHelper.SetProxy(options, proxy);
+
+            var client = new RestClient(options);
+            var request = new RestRequest($"/v15.0/{idDraft}/addraft_fragments?access_token={token}&fields=id,ad_object_type,values,ad_object_id", Method.Get);
+            request.AddHeader("Cookie", cookie);
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            RestResponse response = await client.ExecuteAsync(request);
+
+            try
+            {
+                JArray valuesArray1 = null;
+                JArray valuesArray2 = null;
+
+
+                string result = response.Content ?? string.Empty;
+
+                JObject obj = JObject.Parse(result);
+
+                JArray dataArray = (JArray)obj["data"];
+
+                foreach (var item in dataArray)
+                {
+                    if ((string)item["ad_object_type"] == "ad_set")
+                    {
+                        valuesArray1 = (JArray)item["values"];
+                        FixJsonValues(valuesArray1);
+                    }
+
+                    if ((string)item["ad_object_type"] == "ad")
+                    {
+                        valuesArray2 = (JArray)item["values"];
+                        FixJsonValues(valuesArray2);
+                    }
+                }
+
+                return valuesArray1.ToString(Newtonsoft.Json.Formatting.None) + "|" + valuesArray2.ToString(Newtonsoft.Json.Formatting.None);
+
+            }
+            catch
+            {
+                return "Lỗi lấy id ad";
+            }
+        }
 
     }
 }
